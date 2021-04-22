@@ -18,7 +18,7 @@ const ProductDetails = (props: any) => {
   return (
     <div>
       <Grid container spacing={3}>
-        <Grid spacing={3} item xs={12} sm={6}>
+        <Grid item xs={12} sm={6}>
           <Grid item>
             <Paper> </Paper>
           </Grid>
