@@ -1,20 +1,16 @@
-import { ProductEntityProps } from "./testProducts";
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useStyles } from "../styles/tableStyles";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import { IconButton, ThemeProvider } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-
-interface ProductDetailsProps {
-  product: ProductEntityProps;
-}
+import { Link } from "react-router-dom";
+import ProductService from "../services/ProductService";
 
 const ProductDetails = (props: any) => {
   const product = props.location.state.product;
   const classes = useStyles();
+  const productService = new ProductService();
 
   return (
     <div>
@@ -55,8 +51,13 @@ const ProductDetails = (props: any) => {
             <Grid item xs={12} sm={6}>
               <Grid>
                 <Paper className={classes.paper}>
-                  <Link>
-                    <IconButton className={classes.buttonStyle}>
+                  <Link to={{ pathname: `/` }}>
+                    <IconButton
+                      className={classes.buttonStyle}
+                      onClick={() => {
+                        productService.deleteProductById(product.id);
+                      }}
+                    >
                       <DeleteForeverIcon />
                     </IconButton>
                   </Link>
@@ -81,3 +82,6 @@ const ProductDetails = (props: any) => {
 };
 
 export default ProductDetails;
+function componentDidMount() {
+  throw new Error("Function not implemented.");
+}

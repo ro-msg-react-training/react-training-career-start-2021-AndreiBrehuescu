@@ -1,6 +1,4 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
