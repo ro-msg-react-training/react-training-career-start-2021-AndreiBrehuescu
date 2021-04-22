@@ -28,8 +28,6 @@ export const TableProducts = (props: ProductEntityProps) => {
     });
   }, []);
 
-  console.log(data);
-
   const classes = useStyles();
   const items = data.map((product) => (
     <tr className={classes.trStyle}>

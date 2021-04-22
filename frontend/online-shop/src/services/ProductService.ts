@@ -11,7 +11,6 @@ class ProductService {
   }
 
   deleteProductById(props: number) {
-    console.log("http://localhost:8080/products/" + props.toString());
     const result = axios.delete(
       "http://localhost:8080/products/" + props.toString(),
       {}
