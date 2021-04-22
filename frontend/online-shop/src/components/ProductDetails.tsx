@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { useStyles } from "../styles/tableStyles";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { IconButton, ThemeProvider } from "@material-ui/core";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 interface ProductDetailsProps {
   product: ProductEntityProps;
@@ -20,7 +21,9 @@ const ProductDetails = (props: any) => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Grid item>
-            <Paper> </Paper>
+            <Paper className={classes.paper}>
+              <IconButton className={classes.buttonStyle}></IconButton>
+            </Paper>
           </Grid>
           <Grid item>
             <Paper className={classes.paper}>Nume : {product.name}</Paper>
@@ -39,13 +42,29 @@ const ProductDetails = (props: any) => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Grid>
-            <Paper className={classes.paper}>
-              <IconButton className={classes.buttonStyle}>
-                <AddShoppingCartIcon />
-              </IconButton>
-            </Paper>
+          <Grid container>
+            <Grid item xs={12} sm={6}>
+              <Grid>
+                <Paper className={classes.paper}>
+                  <IconButton className={classes.buttonStyle}>
+                    <AddShoppingCartIcon />
+                  </IconButton>
+                </Paper>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Grid>
+                <Paper className={classes.paper}>
+                  <Link>
+                    <IconButton className={classes.buttonStyle}>
+                      <DeleteForeverIcon />
+                    </IconButton>
+                  </Link>
+                </Paper>
+              </Grid>
+            </Grid>
           </Grid>
+
           <Grid item>
             <Paper className={classes.imageStyle}>
               <img src={product.imageUrl} width="200" height="200" />
