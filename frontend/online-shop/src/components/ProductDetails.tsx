@@ -5,12 +5,10 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Link } from "react-router-dom";
-import ProductService from "../services/ProductService";
 
 const ProductDetails = (props: any) => {
   const product = props.location.state.product;
   const classes = useStyles();
-  const productService = new ProductService();
 
   return (
     <div>
@@ -53,10 +51,10 @@ const ProductDetails = (props: any) => {
                 <Paper className={classes.paper}>
                   <Link to={{ pathname: `/` }}>
                     <IconButton
-                      className={classes.buttonStyle}
-                      onClick={() => {
-                        productService.deleteProductById(product.id);
-                      }}
+                    // className={classes.buttonStyle}
+                    // onClick={() => {
+                    //   productService.deleteProductById(product.id);
+                    // }}
                     >
                       <DeleteForeverIcon />
                     </IconButton>

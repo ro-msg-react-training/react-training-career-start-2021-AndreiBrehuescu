@@ -1,21 +1,14 @@
 import axios from "axios";
 
-class ProductService {
-  props: any;
-  constructor() {}
+export const getProducts = async () => {
+  const result = await axios.get("http://localhost:8080/products", {});
 
-  getProducts() {
-    const result = axios.get("http://localhost:8080/products", {});
+  return result;
+};
 
-    return result;
-  }
-
-  deleteProductById(props: number) {
-    const result = axios.delete(
-      "http://localhost:8080/products/" + props.toString(),
-      {}
-    );
-  }
-}
-
-export default ProductService;
+export const deleteProductById = async (props: number) => {
+  const result = await axios.delete(
+    "http://localhost:8080/products/" + props.toString(),
+    {}
+  );
+};

@@ -1,10 +1,11 @@
-import { IconButton, ThemeProvider } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { useStyles } from "../styles/tableStyles";
 import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import ProductService from "../services/ProductService";
-import React from "react";
+import { connect, useDispatch } from "react-redux";
+import { ProductsTable } from "../reducers/ProductsTableReducer";
+import { Product } from "../interfaces/ProductInterfaces";
+import { getProducts } from "../actions/ProductsTableAction";
 
 export interface ProductEntityProps {
   id: number;
@@ -16,22 +17,34 @@ export interface ProductEntityProps {
   imageUrl: string;
 }
 
-export const TableProducts = (props: ProductEntityProps) => {
-  var productService = new ProductService();
-  var result = productService.getProducts();
+interface ProductsTableProps {
+  products: Product[];
+}
 
-  const [data, setData] = React.useState<any[]>([]);
+const mapStateToProps = (state: ProductsTable) => {
+  console.log(state);
+  return { products: state.products };
+};
 
-  React.useEffect(() => {
-    result.then((res) => {
-      setData(res.data);
-    });
-  }, []);
+export const TableProducts = (props: ProductsTableProps) => {
+  // const [data, setData] = React.useState<any[]>([]);
+
+  // React.useEffect(() => {
+  //   productService.getProducts().then((res) => {
+  //     setData(res.data);
+  //   });
+  // }, []);
+
+  const dispatch = useDispatch();
+
+  dispatch(getProducts());
+
+  console.log(props);
 
   const classes = useStyles();
-  const items = data.map((product) => (
+  const items = props.products.map((product) => (
     <tr className={classes.trStyle}>
-      <td className={classes.thtdStyle}>{product.productCategoryDto.name}</td>
+      <td className={classes.thtdStyle}>{product.category.name}</td>
       <td className={classes.thtdStyle}>{product.name}</td>
       <td className={classes.thtdStyle}>{product.price}</td>
       <td key={product.id}>
@@ -58,3 +71,5 @@ export const TableProducts = (props: ProductEntityProps) => {
     </table>
   );
 };
+
+export default connect(mapStateToProps)(TableProducts);
