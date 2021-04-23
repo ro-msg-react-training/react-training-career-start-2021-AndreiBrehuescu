@@ -1,7 +1,9 @@
-import { IconButton } from "@material-ui/core";
+import { IconButton, ThemeProvider } from "@material-ui/core";
 import { useStyles } from "../styles/tableStyles";
 import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { ProductsTable } from "../reducers/ProductsTableReducer";
 import { Product } from "../interfaces/ProductInterfaces";
@@ -22,7 +24,6 @@ interface ProductsTableProps {
 }
 
 const mapStateToProps = (state: ProductsTable) => {
-  console.log(state);
   return { products: state.products };
 };
 
