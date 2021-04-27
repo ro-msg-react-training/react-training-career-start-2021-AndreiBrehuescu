@@ -7,13 +7,24 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Link } from "react-router-dom";
 import { deleteProductById } from "../services/ProductService";
 import UpdateIcon from "@material-ui/icons/Update";
-import { AddToCart } from "./Cart";
+import { useDispatch } from "react-redux";
+import { Product } from "../interfaces/ProductInterfaces";
+import {
+  addProductToCart,
+  addProductToCartRequest,
+} from "../actions/CartActions";
 
 export const ProductDetails = (props: any) => {
   const product = props.location.state.product;
   const classes = useStyles();
 
   console.log(product);
+  const dispatch = useDispatch();
+
+  const addToCart = (pro: Product) => {
+    dispatch(addProductToCartRequest(pro));
+    console.log("AAAA");
+  };
 
   return (
     <div>
@@ -48,7 +59,7 @@ export const ProductDetails = (props: any) => {
                   <IconButton
                     className={classes.buttonStyle}
                     onClick={() => {
-                      AddToCart(product);
+                      addToCart(product);
                     }}
                   >
                     <AddShoppingCartIcon />

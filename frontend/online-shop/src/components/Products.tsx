@@ -29,10 +29,10 @@ export const TableProducts = (props: ProductsTableProps) => {
   console.log(store.getState().products);
 
   // CONSOLE LOG
-  //console.log(props.products);
+  console.log(props.products);
 
   const classes = useStyles();
-  const items = store.getState().products.map((product) => (
+  const items = store.getState().products.products.map((product) => (
     <tr className={classes.trStyle} key={product.id}>
       <td className={classes.thtdStyle}>{product.productCategoryDto.name}</td>
       <td className={classes.thtdStyle}>{product.name}</td>

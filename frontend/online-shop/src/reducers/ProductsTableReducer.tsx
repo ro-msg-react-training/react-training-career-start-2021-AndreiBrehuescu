@@ -10,13 +10,11 @@ import { deleteProductById, getProducts } from "../services/ProductService";
 export interface ProductsTableState {
   products: Product[];
   isLoading: boolean;
-  cart: Product[];
 }
 
 const initialState: ProductsTableState = {
   products: [],
   isLoading: false,
-  cart: [],
 };
 
 export const ProductsTableReducer = (
@@ -38,6 +36,7 @@ export const ProductsTableReducer = (
         products: action.payload,
         isLoading: false,
       };
+
     default:
       return state;
   }
