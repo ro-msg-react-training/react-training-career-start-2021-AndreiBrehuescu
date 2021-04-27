@@ -5,10 +5,15 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Link } from "react-router-dom";
+import { deleteProductById } from "../services/ProductService";
+import UpdateIcon from "@material-ui/icons/Update";
+import { AddToCart } from "./Cart";
 
-const ProductDetails = (props: any) => {
+export const ProductDetails = (props: any) => {
   const product = props.location.state.product;
   const classes = useStyles();
+
+  console.log(product);
 
   return (
     <div>
@@ -40,7 +45,12 @@ const ProductDetails = (props: any) => {
             <Grid item xs={12} sm={6}>
               <Grid>
                 <Paper className={classes.paper}>
-                  <IconButton className={classes.buttonStyle}>
+                  <IconButton
+                    className={classes.buttonStyle}
+                    onClick={() => {
+                      AddToCart(product);
+                    }}
+                  >
                     <AddShoppingCartIcon />
                   </IconButton>
                 </Paper>
@@ -51,10 +61,10 @@ const ProductDetails = (props: any) => {
                 <Paper className={classes.paper}>
                   <Link to={{ pathname: `/` }}>
                     <IconButton
-                    // className={classes.buttonStyle}
-                    // onClick={() => {
-                    //   productService.deleteProductById(product.id);
-                    // }}
+                      className={classes.buttonStyle}
+                      onClick={() => {
+                        deleteProductById(product.id);
+                      }}
                     >
                       <DeleteForeverIcon />
                     </IconButton>
@@ -74,12 +84,18 @@ const ProductDetails = (props: any) => {
         <Grid item xs={12} sm={12}>
           <Paper className={classes.paper}>{product.description}</Paper>
         </Grid>
+        <Grid item xs={3} sm={3}>
+          <Paper className={classes.paper}>
+            <Link
+              to={{ pathname: `/update/${product.id}`, state: { product } }}
+            >
+              <IconButton className={classes.buttonStyle}>
+                <UpdateIcon />
+              </IconButton>
+            </Link>
+          </Paper>
+        </Grid>
       </Grid>
     </div>
   );
 };
-
-export default ProductDetails;
-function componentDidMount() {
-  throw new Error("Function not implemented.");
-}

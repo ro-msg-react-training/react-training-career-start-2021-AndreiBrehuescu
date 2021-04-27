@@ -1,34 +1,43 @@
 import React from "react";
 import {
-  ProductsTableActions,
+  ProductsTableActionsEnum,
   ProductsTableActionsInterface,
 } from "../actions/ProductsTableAction";
-import Products from "../components/Products";
-import { Product } from "../interfaces/ProductInterfaces";
-import { getProducts } from "../services/ProductService";
 
-export interface ProductsTable {
+import { Product } from "../interfaces/ProductInterfaces";
+import { deleteProductById, getProducts } from "../services/ProductService";
+
+export interface ProductsTableState {
   products: Product[];
+  isLoading: boolean;
+  cart: Product[];
 }
 
-const InitialState: ProductsTable = {
+const initialState: ProductsTableState = {
   products: [],
+  isLoading: false,
+  cart: [],
 };
 
 export const ProductsTableReducer = (
-  state = InitialState,
+  state = initialState,
   action: ProductsTableActionsInterface
-): ProductsTable => {
+): ProductsTableState => {
   switch (action.type) {
-    case ProductsTableActions.GET_PRODUCTS:
-      let produse = getProducts().then((result) => {
-        let prod: ProductsTable = {
-          products: result.data,
-        };
-        return prod;
-      });
-      return state;
-
+    case ProductsTableActionsEnum.GET_ALL_PRODUCTS_REQUEST:
+      // CONSOLE LOG
+      console.log("Request in REDUCER");
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ProductsTableActionsEnum.GET_ALL_PRODUCTS_SUCCESS:
+      console.log("Success in reducer");
+      return {
+        ...state,
+        products: action.payload,
+        isLoading: false,
+      };
     default:
       return state;
   }

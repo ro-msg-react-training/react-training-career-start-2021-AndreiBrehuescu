@@ -1,6 +1,7 @@
 import { TableProducts } from "./components/Products";
+import UpdateProduct from "./components/UpdateProduct";
 import { Switch, Route, Redirect } from "react-router-dom";
-import ProductDetails from "./components/ProductDetails";
+import { ProductDetails } from "./components/ProductDetails";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "./styles/tableTheme";
 import Header from "./Header";
@@ -17,8 +18,10 @@ export const App = () => {
           <Route exact path="/">
             <Redirect to="/products" />
           </Route>
+
           <Route path="/product/:id" component={ProductDetails} />
           <Route exact path="/products" component={TableProducts} />
+          <Route path="/update/:id" component={UpdateProduct} />
           <Route path="*">
             <NoMatch />
           </Route>

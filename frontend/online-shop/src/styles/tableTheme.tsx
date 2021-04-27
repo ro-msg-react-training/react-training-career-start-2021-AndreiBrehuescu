@@ -11,7 +11,6 @@ const theme = createMuiTheme({
       main: "#009879",
     },
     secondary: {
-      //tbody tr background color
       main: "#f3f3f3",
     },
     common: {
