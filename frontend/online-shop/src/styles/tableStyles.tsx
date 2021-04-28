@@ -5,6 +5,11 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      overflow: "hidden",
+      textAlign: "center",
+    },
+    buttonCenter: {
+      marginTop: "10%",
     },
     trStyle: {
       color: theme.palette.primary.main,

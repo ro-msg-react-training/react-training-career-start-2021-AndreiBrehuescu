@@ -8,8 +8,6 @@ import {
 
 function* addProductToCartAsync(action: CartActionsInterface) {
   try {
-    console.log(action);
-    console.log("CartSAGA");
     yield put(addProductToCart(action.payload));
   } catch (err) {
     yield put(addProductToCartError());

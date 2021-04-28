@@ -15,9 +15,11 @@ const Header = () => (
       </Link>
     </Grid>
     <Grid item xs={12} sm={6}>
-      <IconButton className={useStyles().buttonStyle}>
-        <ShoppingCartIcon />
-      </IconButton>
+      <Link to={{ pathname: "/cart" }}>
+        <IconButton className={useStyles().buttonStyle}>
+          <ShoppingCartIcon />
+        </IconButton>
+      </Link>
     </Grid>
   </Grid>
 );

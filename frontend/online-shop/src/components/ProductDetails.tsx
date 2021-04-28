@@ -17,13 +17,10 @@ import {
 export const ProductDetails = (props: any) => {
   const product = props.location.state.product;
   const classes = useStyles();
-
-  console.log(product);
   const dispatch = useDispatch();
 
   const addToCart = (pro: Product) => {
     dispatch(addProductToCartRequest(pro));
-    console.log("AAAA");
   };
 
   return (

@@ -8,6 +8,8 @@ import Header from "./Header";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { NoMatch } from "./pages/NoMatchPAge";
+import { CartProducts } from "./components/CartProducts";
+import { Checkout } from "./components/Checkout";
 
 export const App = () => {
   return (
@@ -18,10 +20,11 @@ export const App = () => {
           <Route exact path="/">
             <Redirect to="/products" />
           </Route>
-
           <Route path="/product/:id" component={ProductDetails} />
           <Route exact path="/products" component={TableProducts} />
           <Route path="/update/:id" component={UpdateProduct} />
+          <Route exact path="/cart" component={CartProducts} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route path="*">
             <NoMatch />
           </Route>

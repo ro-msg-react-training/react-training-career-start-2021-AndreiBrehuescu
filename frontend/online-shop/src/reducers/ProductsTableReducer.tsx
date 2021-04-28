@@ -23,14 +23,11 @@ export const ProductsTableReducer = (
 ): ProductsTableState => {
   switch (action.type) {
     case ProductsTableActionsEnum.GET_ALL_PRODUCTS_REQUEST:
-      // CONSOLE LOG
-      console.log("Request in REDUCER");
       return {
         ...state,
         isLoading: true,
       };
     case ProductsTableActionsEnum.GET_ALL_PRODUCTS_SUCCESS:
-      console.log("Success in reducer");
       return {
         ...state,
         products: action.payload,

@@ -24,13 +24,6 @@ export const TableProducts = (props: ProductsTableProps) => {
     dispatch(getAllProductsRequest());
   }, []);
 
-  // CONSOLE LOG
-
-  console.log(store.getState().products);
-
-  // CONSOLE LOG
-  console.log(props.products);
-
   const classes = useStyles();
   const items = store.getState().products.products.map((product) => (
     <tr className={classes.trStyle} key={product.id}>
@@ -65,12 +58,6 @@ export const TableProducts = (props: ProductsTableProps) => {
 const mapStateToProps = (state: AppState) => ({
   products: state.products.products,
   isLoading: state.products.isLoading,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getAllProd: () => dispatch(getAllProductsRequest()),
-  getAllProdSuccess: (products: Product[]) =>
-    dispatch(getAllProductsSuccess(products)),
 });
 
 export default connect(mapStateToProps, {
