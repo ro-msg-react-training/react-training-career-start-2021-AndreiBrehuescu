@@ -1,4 +1,4 @@
-import { Box, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { useStyles } from "../styles/tableStyles";
 import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
@@ -9,8 +9,7 @@ import {
   getAllProductsSuccess,
 } from "../actions/ProductsTableAction";
 import { AppState, store } from "../store/store";
-import { Dispatch } from "redux";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 interface ProductsTableProps {
   products: Product[];
@@ -22,8 +21,7 @@ export const TableProducts = (props: ProductsTableProps) => {
 
   useEffect(() => {
     dispatch(getAllProductsRequest());
-  }, []);
-
+  });
   const classes = useStyles();
   const items = store.getState().products.products.map((product) => (
     <tr className={classes.trStyle} key={product.id}>
@@ -31,7 +29,7 @@ export const TableProducts = (props: ProductsTableProps) => {
       <td className={classes.thtdStyle}>{product.name}</td>
       <td className={classes.thtdStyle}>{product.price}</td>
       <td key={product.id}>
-        <Link to={{ pathname: `/product/${product.id}`, state: { product } }}>
+        <Link to={{ pathname: `/product/${product.id}` }}>
           <IconButton className={classes.buttonStyle}>
             <InfoIcon />
           </IconButton>

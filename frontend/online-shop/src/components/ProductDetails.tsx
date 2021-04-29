@@ -5,7 +5,7 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Link } from "react-router-dom";
-import { deleteProductById } from "../services/ProductService";
+import { deleteProductById, getProductById } from "../services/ProductService";
 import UpdateIcon from "@material-ui/icons/Update";
 import { useDispatch } from "react-redux";
 import { Product } from "../interfaces/ProductInterfaces";
@@ -13,15 +13,41 @@ import {
   addProductToCart,
   addProductToCartRequest,
 } from "../actions/CartActions";
+import { useEffect, useState } from "react";
 
 export const ProductDetails = (props: any) => {
-  const product = props.location.state.product;
+  const id = (props as any).match.params.id;
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const addToCart = (pro: Product) => {
     dispatch(addProductToCartRequest(pro));
   };
+
+  const [prod, setProd] = useState({
+    id: 0,
+    name: "",
+    description: "",
+    imageUrl: "",
+    price: 0.0,
+    weight: 0.0,
+    productCategoryDto: {
+      id: 0,
+      name: "",
+      description: "",
+    },
+    supplierDto: {
+      id: 0,
+      name: "",
+    },
+  });
+
+  useEffect(() => {
+    getProductById(id).then((response) => {
+      setProd(response.data);
+    });
+  }, [id]);
 
   return (
     <div>
@@ -33,18 +59,18 @@ export const ProductDetails = (props: any) => {
             </Paper>
           </Grid>
           <Grid item>
-            <Paper className={classes.paper}>Nume : {product.name}</Paper>
+            <Paper className={classes.paper}>Nume : {prod.name}</Paper>
           </Grid>
           <Grid item>
             <Paper className={classes.paper}>
-              Categorie : {product.productCategoryDto.name}
+              Categorie : {prod.productCategoryDto.name}
             </Paper>
           </Grid>
           <Grid item>
-            <Paper className={classes.paper}>Pret : {product.price}</Paper>
+            <Paper className={classes.paper}>Pret : {prod.price}</Paper>
           </Grid>
           <Grid item>
-            <Paper className={classes.paper}>Greutate : {product.weight}</Paper>
+            <Paper className={classes.paper}>Greutate : {prod.weight}</Paper>
           </Grid>
         </Grid>
 
@@ -56,7 +82,7 @@ export const ProductDetails = (props: any) => {
                   <IconButton
                     className={classes.buttonStyle}
                     onClick={() => {
-                      addToCart(product);
+                      addToCart(prod);
                     }}
                   >
                     <AddShoppingCartIcon />
@@ -71,7 +97,7 @@ export const ProductDetails = (props: any) => {
                     <IconButton
                       className={classes.buttonStyle}
                       onClick={() => {
-                        deleteProductById(product.id);
+                        deleteProductById(prod.id);
                       }}
                     >
                       <DeleteForeverIcon />
@@ -84,19 +110,17 @@ export const ProductDetails = (props: any) => {
 
           <Grid item>
             <Paper className={classes.imageStyle}>
-              <img src={product.imageUrl} width="200" height="200" />
+              <img src={prod.imageUrl} width="200" height="200" />
             </Paper>
           </Grid>
         </Grid>
 
         <Grid item xs={12} sm={12}>
-          <Paper className={classes.paper}>{product.description}</Paper>
+          <Paper className={classes.paper}>{prod.description}</Paper>
         </Grid>
         <Grid item xs={3} sm={3}>
           <Paper className={classes.paper}>
-            <Link
-              to={{ pathname: `/update/${product.id}`, state: { product } }}
-            >
+            <Link to={{ pathname: `/update/${prod.id}`, state: { prod } }}>
               <IconButton className={classes.buttonStyle}>
                 <UpdateIcon />
               </IconButton>

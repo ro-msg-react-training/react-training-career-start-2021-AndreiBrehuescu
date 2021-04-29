@@ -54,6 +54,18 @@ const useStyles = makeStyles((theme) => ({
 export const Checkout = () => {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("Order created");
+  const [errors, setErrors] = React.useState({
+    addressCountry: "",
+    addressCity: "",
+    addressCounty: "",
+    addressStreetAddress: "",
+  });
+  const [errstatus, setErrstatus] = React.useState({
+    addressCountry: false,
+    addressCity: false,
+    addressCounty: false,
+    addressStreetAddress: false,
+  });
 
   const addr = initAddress;
   const classes = useStyles();
@@ -76,10 +88,13 @@ export const Checkout = () => {
   initOrder.detailsDtos = prodDetails;
 
   const createOrderClick = async () => {
+    validate();
+    console.log(errors);
+
     initOrder.address = addr;
     await addNewOrder(initOrder).catch(function (error) {
       if (error.response) {
-        setMessage("FAILED to create order");
+        setMessage("FAILED to create order Server Error");
       }
     });
     setOpen(true);
@@ -87,6 +102,40 @@ export const Checkout = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const validate = () => {
+    let temp: AddressInterface = {
+      addressCountry: "",
+      addressCity: "",
+      addressCounty: "",
+      addressStreetAddress: "",
+    };
+
+    temp.addressCountry = addr.addressCountry ? "" : "Field required";
+    temp.addressCity = addr.addressCity ? "" : "Field required";
+    temp.addressCounty = new RegExp("(^[a-zA-Z]+(s*[a-zA-Z]+)*$)|(^$)").test(
+      addr.addressCounty
+    )
+      ? ""
+      : "County not valid";
+    temp.addressStreetAddress = addr.addressStreetAddress
+      ? ""
+      : "Field required";
+
+    let statusErros = {
+      addressCountry: true,
+      addressCity: true,
+      addressCounty: true,
+      addressStreetAddress: true,
+    };
+
+    statusErros.addressCountry = temp.addressCountry ? true : false;
+    statusErros.addressCity = temp.addressCity ? true : false;
+    statusErros.addressCounty = temp.addressCounty ? true : false;
+    statusErros.addressStreetAddress = temp.addressStreetAddress ? true : false;
+    setErrors(temp);
+    setErrstatus(statusErros);
   };
 
   return (
@@ -114,24 +163,32 @@ export const Checkout = () => {
       <div>
         <form className={classes.root} noValidate autoComplete="off">
           <TextField
+            error={errstatus.addressCountry}
+            helperText={errors.addressCountry}
             id="address-country"
             label="Country "
             variant="outlined"
             onChange={(event) => (addr.addressCountry = event.target.value)}
           />
           <TextField
+            error={errstatus.addressCity}
+            helperText={errors.addressCity}
             id="address-city"
             label="City "
             variant="outlined"
             onChange={(event) => (addr.addressCity = event.target.value)}
           />
           <TextField
+            error={errstatus.addressCounty}
+            helperText={errors.addressCounty}
             id="address-county"
             label="County "
             variant="outlined"
             onChange={(event) => (addr.addressCounty = event.target.value)}
           />
           <TextField
+            error={errstatus.addressStreetAddress}
+            helperText={errors.addressStreetAddress}
             id="address-street"
             label="Street "
             variant="outlined"

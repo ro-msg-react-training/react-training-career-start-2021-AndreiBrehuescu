@@ -26,3 +26,10 @@ export const updateProductById = async (id: number, product: any) => {
 
   return result;
 };
+
+export const getProductById = async (id: number) => {
+  const result = await axios.get(
+    "http://localhost:8080/products/" + id.toString()
+  );
+  return result;
+};
